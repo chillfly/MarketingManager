@@ -1,0 +1,44 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<div class="wrap-container">
+    <form class="layui-form" method="post" style="width: 90%;padding-top: 20px;">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入角色名称" autocomplete="off"
+                       class="layui-input" value="{{ one and one.name }}">
+                <input type="hidden" name="role_id" value="{{ one and one.id }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色类型：</label>
+            <div class="layui-input-block">
+                <select name="types" required autocomplete="off" class="layui-input">
+                    {% for key, val in role_types.items() %}
+                    <option value="{{ key }}" {% if one and one.types == key %}selected{% end %}>{{ val }}</option>
+                    {% end %}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="comments" placeholder="请输入内容"
+                          class="layui-textarea">{{ one and filter_none(one.comments) }}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+

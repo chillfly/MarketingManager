@@ -1,0 +1,15 @@
+{% extends "../iframe.html" %}
+
+{% block js %}
+<script src="{{static_url('lib/echarts/echarts.js')}}"></script>
+{% end %}
+
+{% block content %}
+<div class="wrap-container welcome-container">
+    <div class="row">
+        <div class="welcome-left-container col-lg-12">
+            {{ current_time_period }}好，{{ user.real_name or user.name }}
+        </div>
+    </div>
+</div>
+{% end %}

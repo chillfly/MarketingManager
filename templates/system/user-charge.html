@@ -1,0 +1,26 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<div class="wrap-container">
+    <form class="layui-form" method="post" style="width: 90%;padding-top: 20px;">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item" >
+            <label class="layui-form-label">数量：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="charge_num" lay-verify="required|number" placeholder="请输入充值金额" autocomplete="off" class="layui-input" >
+                <input type="hidden" name="user_id"  value="{{user_id}}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">{{ coin_name }}</div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+

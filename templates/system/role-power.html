@@ -1,0 +1,77 @@
+{% extends "../iframe.html" %}
+
+
+{% block content %}
+    <fieldset class="layui-elem-field">
+    <legend>可供分配权限</legend>
+    <div class="layui-field-box" id="all-power">
+      {% for power in role_no_power %}
+        <button class="layui-btn layui-btn-xs layui-btn-normal" data-toggle="add-pri" data-id="{{ power.id }}">
+          {{ power.name }}
+        </button>
+      {% end %}
+    </div>
+  </fieldset>
+
+  <fieldset class="layui-elem-field">
+    <legend>{{ role.name }}已经拥有的权限 </legend>
+    <div class="layui-field-box" id="role-power">
+      {% if role.types == sp_admin %}
+        全部权限
+      {% else %}
+        {% for power in role_power %}
+          <button class="layui-btn layui-btn-xs layui-btn-warm" data-toggle="add-pri" data-id="{{ power.id }}">
+            {{ power.name }}
+          </button>
+        {% end %}
+      {% end %}
+    </div>
+  </fieldset>
+
+  <button class="layui-btn layui-btn-sm" data-toggle="submit" data-rid="{{ role.id }}"><i class="fa fa-save"></i> 保存</button>
+
+{% end %}
+
+{% block script %}
+<script>
+  $().ready(function(){
+
+      $("#all-power").on("click", ".layui-btn", function(e){
+        var $this = $(this);
+        $this.removeClass("layui-btn-normal").addClass("layui-btn-warm");
+        $("#role-power").append($this);
+        $("#all-power").remove("[data-id="+ $this.attr("data-id")+"]");
+      });
+      $("#role-power").on("click", ".layui-btn", function(e){
+        var $this = $(this);
+        $this.removeClass("layui-btn-warm").addClass("layui-btn-normal");
+        $("#all-power").append($this);
+        $("#role-power").remove("[data-id="+ $this.attr("data-id")+"]");
+      });
+      $("[data-toggle=submit]").on("click", function(e){
+        // get all pid
+        var pids = "", self = $(this);
+        $("#role-power button").each(function(){
+          pids += $(this).attr("data-id") + ",";
+        });
+
+      ajaxFormSubmit("/system/role/power/set", {"power_ids":pids, "role_id":self.attr("data-rid")}, function (resp) {
+          var msg = "";
+          if(!resp.ok) {
+            msg = resp.reason;
+          } else {
+            msg = "成功 " + resp.data;
+          }
+          layer.alert(msg, function(){
+            layer.close(layer.index);
+            if (resp.ok) {
+              var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+              parent.layer.close(index); //再执行关闭
+              parent.location.reload();
+            }
+          });
+      });
+  })
+})
+</script>
+{% end %}

@@ -1,0 +1,59 @@
+
+{% extends "../iframe.html" %}
+
+{% block content %}
+	<div class="wrap-container">
+		<form class="layui-form" method="post">
+			{% module xsrf_form_html() %}
+		  <div class="layui-form-item">
+			<label class="layui-form-label">用户名：</label>
+			<div class="layui-input-block">
+			  	<input type="text" name="name" disabled autocomplete="off" class="layui-input layui-disabled" value="{{user.name}}">
+			</div>
+		  </div>
+		  <div class="layui-form-item">
+			<label class="layui-form-label">旧密码：</label>
+			<div class="layui-input-block">
+			  <input type="password" name="password1" lay-verify="pwd" placeholder="请输入密码（字母和数字的组合）" autocomplete="off" class="layui-input">
+			</div>
+		  </div>
+		  <div class="layui-form-item">
+			<label class="layui-form-label">新密码：</label>
+			<div class="layui-input-block">
+			  <input type="password" name="password2" lay-verify="pwd" placeholder="请输入密码（字母和数字的组合）" autocomplete="off" class="layui-input">
+			</div>
+		  </div>
+		  <div class="layui-form-item">
+			<label class="layui-form-label">重复密码：</label>
+			<div class="layui-input-block">
+			  <input type="password" name="password3" lay-verify="pwd" placeholder="请输入密码（字母和数字的组合）" autocomplete="off" class="layui-input">
+			</div>
+		  </div>
+		  <div class="layui-form-item">
+			<div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+		  </div>
+		</form>
+	</div>
+{% end %}
+
+
+{% block script %}
+<script>
+    layui.use(['form',],function () {
+        var form = layui.form;
+
+        form.verify({
+          //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+          pwd: [
+            /^[A-Za-z0-9]{6,12}$/
+            ,'密码必须是且仅是6到12位的字母、数字、或者两者的组合'
+          ]
+        });
+    });
+
+</script>
+{% end %}
+

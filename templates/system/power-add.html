@@ -1,0 +1,38 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<div class="wrap-container">
+    <form class="layui-form" method="post" style="width: 90%;padding-top: 20px;">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item" >
+            <label class="layui-form-label">标识：</label>
+            <div class="layui-input-block">
+                <input type="text" name="mark" required lay-verify="required" placeholder="请输入标识" autocomplete="off" class="layui-input" value="{{one and one.mark}}">
+                <input type="hidden" name="id"  value="{{one and one.id}}">
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input" value="{{one and one.name}}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text" >
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="comments" placeholder="请输入内容" class="layui-textarea">{{one and filter_none(one.comments)}}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+

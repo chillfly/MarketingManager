@@ -1,0 +1,28 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<div class="wrap-container">
+    <form class="layui-form" method="post" style="width: 90%;padding-top: 20px;">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item" >
+            <label class="layui-form-label">验证码：</label>
+            <div class="layui-inline">
+                <input type="hidden" name="id" value="{{account_id}}">
+                <input type="text" name="verifycode" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
+                <img class="verifyImg"  src="/weibo/account/verifycode/" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+

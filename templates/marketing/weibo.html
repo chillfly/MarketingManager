@@ -1,0 +1,55 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+<div class="wrap-container">
+    <form class="layui-form" method="post">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述：</label>
+            <input type="hidden" name="product_id" value="{{ product and product.id }}">
+            <div class="layui-form-mid layui-word-aux">
+                当前产品为：{{ product.name }}，价格为：{{ product.price }}{{ settings.COIN_NAME }}，您的账户余额为：{{ user["balance"] }}{{ settings.COIN_NAME }}</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">微博地址：</label>
+            <div class="layui-input-block">
+                <input type="text" name="weibo_url" lay-verify="weibourl" placeholder="请输入微博地址" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        {% if commentlike=="1" %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">评论ID：</label>
+            <div class="layui-input-block">
+                <input type="text" name="comment_id" lay-verify="commentid" placeholder="请输入微博评论ID" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        {% end %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">数量：</label>
+            <div class="layui-input-inline">
+                <input type="number" name="amount" lay-verify="isdigit" placeholder="请输入数量（以百为单位）" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">百</div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-block">
+                <textarea name="comments" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+
+

@@ -1,0 +1,130 @@
+
+# region 基本配置
+
+DEBUG = True
+HOST = "0.0.0.0"
+PORT = 9000
+DEFAULT_PROCESS_NUM = 2
+
+
+# redis
+REDIS_PRE = "dev"
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_PASSWORD = None
+REDIS_SOCKET_TIMEOUT = None
+REDIS_CHARSET = "utf-8"
+REDIS_ERRORS = "strict"
+REDIS_DECODE_RESPONSE = True
+REDIS_UNIX_SOCKET_PATH = None
+
+REDIS_KEYS = {
+    "banned_ip_sets": "banned_ip_sets",
+    "token_": "token_{tk}_{uid}",
+}
+# redis 哨兵
+REDIS_SENTINELS = [
+    ('127.0.0.1', 5001),
+    ('127.0.0.1', 5002),
+    ('127.0.0.1', 5003),
+]
+REDIS_PROXY_DB = 7
+
+# mysql
+MANAGER_DB = "mysql://hanfei:hanfei@47.106.97.129:3306/dev_manager"
+COMMON_DB = "mysql://hanfei:hanfei@47.106.97.129:3306/common_db"
+DB_ENCODE = 'utf-8'
+DB_CONVERT_UNICODE = True
+DB_POOL_SIZE = 100
+DB_POOL_RECYCLE_TIMEOUT = 360
+DB_POOL_PRE_PING = True
+DB_ECHO = DEBUG
+
+# endregion
+
+
+# region  账号相关配置
+
+# 平台用户
+# 安全cookie的秘钥
+PLATFORM_COOKIE_SECRET = "AdkHJp4aR6aNGoRbZgNiMW0mU7f67krKi6I155ta0lA="
+# 平台用户登录密码的秘钥
+PLATFORM_USER_PASSWORD_SECRET = "j4cyxtzHT5WkdyyAWchdA0ACRmwIn0vYpwwk7OIXEj0="
+# 平台用户token的秘钥
+PLATFORM_USER_TOKEN_SECRET = "zKUsxBv5TI6kEILavtWyMQM52makTUUqpPqWyV86Ux4="
+PLATFORM_USER_INITIAL_PWD = "000000"
+
+# 微博相关
+WEIBO_AES_KEY = "gZEKhLvSyCcPCQMH"
+# 微博登录url
+WEIBO_LOGIN_URL = "https://weibo.com/login.php"
+
+# endregion
+
+
+# region  业务专业术语配置
+
+# 代币名称
+COIN_NAME = "广告币"
+# 代币与人民币的汇率（1元人民币所能兑换的代币）
+COIN_RATE_BY_RMB = 100
+
+# 产品购买数量的精度（如：100为精度，都是几百几百的买，不存在十位数和个位数）
+PRODUCT_BUY_PRECISION = 100
+
+# 总支出账户id，所有的账户充值，都是从该账户扣除对应的金额后，才给用户用户加上对应的金额，形成一个走账的收支平衡的流程
+PaymentAccount = 6
+
+# endregion
+
+
+# 微博登录
+USER_AGENTS = [
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",
+    "Mozilla/4.0 (compatible; MSIE 7.0; AOL 9.5; AOLBuild 4337.35; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
+    "Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)",
+    "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 2.0.50727; Media Center PC 6.0)",
+    "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET CLR 1.0.3705; .NET CLR 1.1.4322)",
+    "Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 5.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 3.0.04506.30)",
+    "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN) AppleWebKit/523.15 (KHTML, like Gecko, Safari/419.3) Arora/0.3 (Change: 287 c9dfb30)",
+    "Mozilla/5.0 (X11; U; Linux; en-US) AppleWebKit/527+ (KHTML, like Gecko, Safari/419.3) Arora/0.6",
+    "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2pre) Gecko/20070215 K-Ninja/2.1.1",
+    "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9) Gecko/20080705 Firefox/3.0 Kapiko/3.0",
+    "Mozilla/5.0 (X11; Linux i686; U;) Gecko/20070322 Kazehakase/0.4.5",
+    "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.8) Gecko Fedora/1.9.0.8-1.fc10 Kazehakase/0.5.6",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML, like Gecko) Chrome/19.0.1036.7 Safari/535.20",
+    "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36",
+]
+
+# 微博评论脚本的评论表情
+WEIBO_COMMENT_FACES = [
+    "[锦鲤]", "[中国赞]", "[二哈]", "[抱抱]", "[摊手]", "[跪了]", "[酸]", "[佩奇]", "[乔治]", "[惊奇队长]", "[大侦探皮卡丘微笑]", "[米妮爱你]",
+    "[喵喵]", "[doge]", "[爱你]", "[允悲]", "[悲伤]", "[吃惊]", "[偷笑]", "[疑问]", "[右哼哼]", "[互粉]", "[顶]", "[污]",
+    "[害羞]", "[可怜]", "[失望]", "[生病]", "[憧憬]", "[黑线]", "[感冒]", "[亲亲]", "[并不简单]", "[晕]", "[吃瓜]", "[打脸]",
+    "[可爱]", "[汗]", "[笑而不语]", "[馋嘴]", "[抓狂]", "[太开心]", "[坏笑]", "[吐]", "[色]", "[微笑]", "[笑cry]", "[酷]",
+    "[衰]", "[哼]", "[思考]", "[怒]", "[鼓掌]", "[钱]", "[困]", "[舔屏]", "[拜拜]", "[嘘]", "[左哼哼]", "[阴险]",
+    "[怒骂]", "[费解]", "[挤眼]", "[闭嘴]", "[嘻嘻]", "[哈欠]", "[委屈]", "[泪]", "[鄙视]", "[哈哈]", "[傻眼]", "[挖鼻]",
+    "[睡]", "[白眼]", "[NO]", "[赞]", "[作揖]", "[握手]", "[ok]", "[good]", "[弱]", "[加油]", "[来]", "[耶]",
+]
+
+# 微博返回码，账号异常
+WEIBO_CODE_USER_INVALID = 20034
+# 微博返回码，成功
+WEIBO_CODE_SUCCESS = 100000
+# 微博返回码，系统繁忙
+WEIBO_CODE_BUSY = 100001
+
+# rabbitmq 相关配置
+# rabbitmq前缀
+RABBITMQ_PRE = "dev"
+# rabbitmq，每个交换机所拥有的队列数量
+RABBITMQ_QUEUE_NUMBERS_EVERY_EXCHANGE = 5
+RABBITMQ_HOST = "localhost"
+RABBITMQ_PORT = 5672
+RABBITMQ_USER = "test"
+RABBITMQ_PWD = "test"
+RABBITMQ_VIRTUAL_HOST = "/test"

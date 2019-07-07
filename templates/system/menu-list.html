@@ -1,0 +1,124 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<script type="text/html" id="barDemo">
+  <button class="layui-btn layui-btn-mini layui-btn-normal " lay-event="edit" data-id="{{!d.id}}" data-title="菜单修改" data-url="/system/menu/edit/">
+                  <i class="layui-icon  layui-icon-edit"></i></button>
+</script>
+
+<button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/system/menu/add/" data-title="添加菜单"><i class="layui-icon layui-icon-add-1"></i></button>
+
+<div class="layui-row layui-col-space10" style="margin-top: 10px;">
+  <div class="layui-col-md6">
+    <div class="layui-collapse layer-panel-blue">
+      {% for menu in menus[::2] %}
+      <div class="layui-colla-item ">
+        <h2 class="layui-colla-title">
+          {% if menu["icon"] %}<i class="layui-icon {{ menu['icon'] }}"></i>{% end %}
+          {{ menu['name'] }} | 权限: {{ get_power_name(id=menu['power_id']) }}
+          <div class="pull-right">
+              <button class="layui-btn layui-btn-mini layui-btn-normal edit-menu" data-id="{{ menu['id'] }}" data-title="菜单修改" data-url="/system/menu/edit/">
+                  <i class="layui-icon  layui-icon-edit"></i></button>
+          </div>
+        </h2>
+        {% if menu["child"] %}
+        <div class="layui-colla-content layui-show">
+            <table lay-filter="ch-table" class="table table-bordered table-striped layui-table" lay-size="lg">
+              <thead>
+                  <tr>
+                      <th lay-data="{field:'id', width:50}">id</th>
+                      <th lay-data="{field:'name'}">名称</th>
+                      <th lay-data="{field:'url'}">路径</th>
+                      <th lay-data="{field:'power_id'}">权限</th>
+                      <th lay-data="{fixed: 'right', width:100, align:'center', toolbar: '#barDemo'}">操作</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for ch in menu["child"] %}
+                  <tr>
+                      <td>{{ ch['id'] }}</td>
+                      <td>{{ ch['name'] }}</td>
+                      <td>{{ ch['url'] }}</td>
+                      <td>{{ get_power_name(id=ch['power_id']) }}</td>
+                      <td></td>
+                  </tr>
+                  {% end %}
+              </tbody>
+          </table>
+        </div>
+       {% end %}
+      </div>
+      {% end %}
+    </div>
+  </div>
+
+  <div class="layui-col-md6">
+    <div class="layui-collapse layer-panel-red">
+      {% for menu in menus[1::2] %}
+      <div class="layui-colla-item ">
+        <h2 class="layui-colla-title">
+          {% if menu["icon"] %}<i class="layui-icon {{ menu['icon'] }}"></i>{% end %}
+          {{ menu['name'] }} | 权限: {{ get_power_name(id=menu['power_id']) }}
+          <div class="pull-right">
+              <button class="layui-btn layui-btn-mini layui-btn-normal edit-menu" data-id="{{ menu['id'] }}" data-title="菜单修改" data-url="/system/menu/edit/">
+                  <i class="layui-icon  layui-icon-edit"></i></button>
+          </div>
+        </h2>
+        {% if menu["child"] %}
+        <div class="layui-colla-content layui-show">
+            <table lay-filter="ch-table" class="table table-bordered table-striped layui-table" lay-size="lg">
+              <thead>
+                  <tr>
+                      <th lay-data="{field:'id', width:50}">id</th>
+                      <th lay-data="{field:'name'}">名称</th>
+                      <th lay-data="{field:'url'}">路径</th>
+                      <th lay-data="{field:'power_id'}">权限</th>
+                      <th lay-data="{fixed: 'right', width:100, align:'center', toolbar: '#barDemo'}">操作</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for ch in menu["child"] %}
+                  <tr>
+                      <td>{{ ch['id'] }}</td>
+                      <td>{{ ch['name'] }}</td>
+                      <td>{{ ch['url'] }}</td>
+                      <td>{{ get_power_name(id=ch['power_id']) }}</td>
+                      <td>
+                      </td>
+                  </tr>
+                  {% end %}
+              </tbody>
+          </table>
+        </div>
+        {% end %}
+      </div>
+      {% end %}
+    </div>
+  </div>
+
+</div>
+{% end %}
+
+{% block script %}
+<script>
+    layui.use(['table', 'form'],function () {
+        table = layui.table
+        table.init("ch-table");
+        var iframeObj = $(window.frameElement).attr('name');
+
+        // edit
+        table.on("tool(ch-table)", function(obj){
+            if(obj.event == "edit") {
+               iframe_init($(this),iframeObj)
+            }
+        });
+        $('.edit-menu').on("click", function(e){
+          e.stopPropagation();
+          iframe_init($(this),iframeObj)
+        });
+
+    });
+
+</script>
+{% end %}

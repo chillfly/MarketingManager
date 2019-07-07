@@ -1,0 +1,60 @@
+{% extends "../iframe.html" %}
+
+
+{% block content %}
+<div class="page-content-wrap">
+
+    <div class="layui-row">
+        <div class="site-text site-block" style="margin-left: -28px;">
+            <form class="layui-form form-sm" action="" method="GET" lay-size="sm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户ID</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="user_id" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">时间</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="beg" id="beg_time" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="end" id="end_time" autocomplete="off" class="layui-input">
+                    </div>
+                    <button class="layui-btn layui-btn-sm" lay-submit="" id="search-btn" lay-filter="go-search">搜索
+                    </button>
+                    <button class="layui-btn layui-btn-warm layui-btn-sm" lay-submit="" lay-filter="go-search"
+                            data-toggle="clear">清除条件
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="layui-form" id="table-list">
+        <table id="table" lay-filter="idtable"></table>
+    </div>
+</div>
+
+{% end %}
+
+{% block script %}
+<script>
+    layui.use(['table', 'form'], function () {
+        table = layui.table
+        form = layui.form
+        laydate = layui.laydate
+
+        laydate.render({elem: '#beg_time'});
+        laydate.render({elem: '#end_time'});
+        var cols = [
+            {field: 'id', title: "ID"}
+            , {field: 'user_id', title: "用户ID", width:100}
+            , {field: 'comments', title: "备注"}
+            , {field: 'amount', title: "充值金额（{{ settings.COIN_NAME }}）", width:150}
+            , {field: 'create_time', title: "时间", width:200}
+        ];
+        tableInit("{{request.path}}?data=1", cols)
+    })
+</script>
+{% end %}
+

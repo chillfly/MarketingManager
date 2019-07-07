@@ -1,0 +1,40 @@
+{% extends "../iframe.html" %}
+
+
+{% block content %}
+
+    <script type="text/html" id="barDemo">
+      <div class="layui-inline">
+          <button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-title="修改产品" data-id="{{!d.id}}" data-url="/weibo/product/edit/"><i class="layui-icon layui-icon-edit"></i></button>
+      </div>
+    </script>
+
+    <div class="page-content-wrap">
+        <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/weibo/product/add/" data-title="添加微博产品"><i class="layui-icon layui-icon-add-1"></i></button>
+        <div class="layui-form" id="table-list">
+            <table id="table" lay-filter="idtable"></table>
+        </div>
+    </div>
+
+{% end %}
+
+{% block script %}
+<script>
+layui.use(['table', 'form'],function () {
+    table = layui.table
+    form = layui.form
+    var cols = [
+    {field:'id', title: "ID", width: 90, sort:true}
+    , {field:'name', title: "产品名称"}
+    , {field:'types', title: "产品类型"}
+    , {field:'price', title: "单价（{{ settings.COIN_NAME }}）"}
+    , {field:'comments', title: "备注"}
+    , {field:'create_time', title: "创建时间"}
+    , {field:'update_time', title: "更新时间"}
+    , {align:'center', toolbar: '#barDemo', title: "操作", fixed:'right', width: 200}
+  ];
+   table_render("{{request.path}}?data=1", cols);
+})
+</script>
+{% end %}
+

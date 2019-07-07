@@ -1,0 +1,72 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<div class="wrap-container">
+    <form class="layui-form" method="post" style="width: 90%;padding-top: 20px;">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="menu_name" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" value="{{one and one.name}}">
+                <input type="hidden" name="menu_id"  value="{{one and one.id}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">url：</label>
+            <div class="layui-input-block">
+                <input type="text" name="url"  autocomplete="off" class="layui-input" value="{{one and filter_none(one.url)}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标：</label>
+            <div class="layui-input-block">
+                <input type="text" name="icon"  autocomplete="off" class="layui-input"  value="{{one and filter_none(one.icon)}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限：</label>
+            <div class="layui-input-block">
+                <select name="power_id" lay-verify="required">
+                    {# 系统管理的权限比较特殊，不能通过权限来添加，即使添加了，也没有用，
+                    “系统管理”这块代码不是检测用户有没有某权限，而是检测用户是不是超管，
+                    所以在这里手动加上一个特殊处理的假的“系统管理”权限#}
+                    <option value="0" {% if one and 0==one.power_id %}selected{% end %}>系统管理</option>
+                    {% if powers %}
+                        {% for power in powers %}
+                        <option value="{{power.id}}" {% if one and power.id==one.power_id %}selected{% end %}>{{power.name}}</option>
+                        {% end %}
+                    {% end %}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">父级菜单：</label>
+            <div class="layui-input-block">
+                <select name="fid">
+                    <option value="0"> 无 </option>
+                    {% if fathers %}
+                        {% for menu in fathers %}
+                        <option value="{{menu.id}}"  {% if one and menu.id==one.fid %}selected{% end %}>{{menu.name}}</option>
+                        {% end %}
+                    {% end %}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序：</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort"  autocomplete="off" lay-verify="number" class="layui-input" value="{{one and one.sort}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+

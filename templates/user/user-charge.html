@@ -1,0 +1,29 @@
+
+{% extends "../iframe.html" %}
+
+{% block content %}
+	<div class="wrap-container">
+		<form class="layui-form" method="post">
+			{% module xsrf_form_html() %}
+          <div class="layui-form-item">
+              <label class="layui-form-label">余额：</label>
+              <div class="layui-form-mid layui-word-aux">您的账户余额为：{{user["balance"]}}{{settings.COIN_NAME}}</div>
+		  </div>
+		  <div class="layui-form-item">
+			<label class="layui-form-label">充值金额：</label>
+			<div class="layui-input-inline">
+			  <input type="text" name="charge_num"  lay-verify="number" placeholder="" autocomplete="off" class="layui-input" >
+			</div>
+              <div class="layui-form-mid layui-word-aux">{{settings.COIN_NAME}}</div>
+		  </div>
+		  <div class="layui-form-item">
+			<div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+		  </div>
+		</form>
+	</div>
+{% end %}
+
+

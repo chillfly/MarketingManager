@@ -1,0 +1,47 @@
+{% extends "../iframe.html" %}
+
+{% block content %}
+
+<div class="wrap-container">
+    <form class="layui-form" method="post" style="width: 90%;padding-top: 20px;">
+        {% module xsrf_form_html() %}
+        <div class="layui-form-item" >
+            <label class="layui-form-label">名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" placeholder="请填写名称" autocomplete="off" class="layui-input" value="{{one and one.name}}">
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">类型：</label>
+            <div class="layui-input-block">
+                <input type="hidden" name="product_id"  value="{{one and one.id}}">
+                <select name="types">
+                    {% for key,val in types.items() %}
+                    <option value="{{key}}" {% if one and one.types == key %}selected{% end %}>{{val}}</option>
+                    {% end %}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">单价：</label>
+            <div class="layui-input-block">
+                <input type="text" name="price" lay-verify="required|number" placeholder="请填写价格" autocomplete="off" class="layui-input" value="{{one and one.price}}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text" >
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea name="comments" placeholder="请输入内容" class="layui-textarea">{{filter_none(one and one.comments)}}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="go-submit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% end %}
+
+

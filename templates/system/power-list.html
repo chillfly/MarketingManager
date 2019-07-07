@@ -1,0 +1,39 @@
+{% extends "../iframe.html" %}
+
+
+
+{% block content %}
+
+    <script type="text/html" id="barDemo">
+      <div class="layui-inline">
+          <button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-title="权限编辑" data-id="{{!d.id}}" data-url="/system/power/edit/"><i class="layui-icon  layui-icon-edit"></i></button>
+          <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="{{!d.id}}" data-url="/system/power/del/"><i class="layui-icon layui-icon-delete"></i></button>
+      </div>
+    </script>
+
+    <div class="page-content-wrap">
+        <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/system/power/add/" data-title="添加权限"><i class="layui-icon layui-icon-add-1"></i></button>
+        <div class="layui-form" id="table-list">
+            <table id="table" lay-filter="idtable"></table>
+        </div>
+    </div>
+
+{% end %}
+
+{% block script %}
+<script>
+layui.use(['table', 'form'],function () {
+    table = layui.table
+    form = layui.form
+    var cols = [
+    {field:'id', title: "ID", width: 90, sort:true}
+    , {field:'mark', title: "标识", width: 250}
+    , {field:'name', title: "名称", width: 250}
+    , {field:'comments', title: "备注"}
+    , {align:'center', toolbar: '#barDemo', title: "操作", fixed:'right', width: 200}
+  ];
+   var tableIns = table_render("{{request.path}}?data=1", cols)
+})
+</script>
+{% end %}
+
