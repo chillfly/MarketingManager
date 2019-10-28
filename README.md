@@ -137,7 +137,7 @@
     
         server {
             listen 80;
-            server_name gitlab.humphry150.com;
+            server_name gitlab.abc.com;
             location / { 
                 proxy_set_header  Host  $http_host;
                 proxy_pass      http://0.0.0.0:9091;
@@ -145,7 +145,7 @@
         }
         server {
             listen 80; 
-            server_name testadmin.humphry150.com;
+            server_name testadmin.abc.com;
             location / { 
                 proxy_set_header  Host  $http_host;
                 proxy_pass      http://0.0.0.0:9001;
@@ -153,7 +153,7 @@
         }
         server {
             listen 80; 
-            server_name admin.humphry150.com;
+            server_name admin.abc.com;
             location / { 
                 proxy_set_header  Host  $http_host;
                 proxy_pass      http://0.0.0.0:9002;
